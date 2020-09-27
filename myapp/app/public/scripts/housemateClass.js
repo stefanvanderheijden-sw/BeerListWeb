@@ -16,7 +16,7 @@ class housemate {
       var crates = parseInt((tempBeer / 24));
       if (crates > 0) {
         for (i = 0; i < crates; i++) {
-        this.visualBeer += "[Kratje]";
+        this.visualBeer += "[==]";
       }
       }
       tempBeer -= crates * 24;
@@ -24,7 +24,7 @@ class housemate {
         if (i%5 == 0) {
           this.visualBeer += "     ";
         }
-        this.visualBeer += "/";
+        this.visualBeer += "|";
       }
     }
 
