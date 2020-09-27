@@ -24,8 +24,6 @@ import datetime
 from time import sleep
 import operator
 import sys
-from tkinter import font
-from tkinter import ttk
 from pynput.keyboard import Key, Controller
 
 keyboard = Controller()
