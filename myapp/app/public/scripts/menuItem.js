@@ -54,8 +54,6 @@ class menuItem {
                 $("#topButton").text("Add letter to name");
                 $("#bottomButton").text("Add this housemate");
 
-                
-
                 window.nameMaker = " ";
                 window.mainMenu.clear();
                 window.mainMenu.updateContent(menuLetterList);
@@ -99,9 +97,15 @@ class menuItem {
             }
 
             else if (this.type == "housemateToDelete") {
+                var myOwnName = this.name;
+                window.housemates.forEach(function(housemate,index) {
+                    if (housemate.name === myOwnName) {
+                        window.housemates.splice(index,1);
+                    }});
                 console.log("sending name " + this.name + " to be deleted")
                 window.socket.emit('deleteThisHouseMate',this.name);
-
+                mainMenu.updateContent(window.housemates);
+                window.state = "overview";
             }
         }
     }

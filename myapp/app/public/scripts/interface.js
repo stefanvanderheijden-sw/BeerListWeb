@@ -12,7 +12,7 @@ for (var i = 1; i < (NoAudioFiles+1); i++) {
   audioFiles.push(tempAudioObject);
 }
 
-var player = new mediaPlayer(audioFiles);
+window.player = new mediaPlayer(audioFiles);
 
 var socket = io.connect();
 
@@ -35,13 +35,13 @@ var menuItems =
   new menuItem("Clear beer list","clearBeerList")];
 
 socket.on('housemateData', data => {
-    housemates = [];
+    window.housemates = [];
     housematesData = data;
     housematesData.forEach(function(housemateData){
-        housemates.push(new housemate(housemateData.name,housemateData.beercount,mainMenu))
+        window.housemates.push(new housemate(housemateData.name,housemateData.beercount,mainMenu))
     });
 
-    housemates.sort(SortByName);
+    window.housemates.sort(SortByName);
     mainMenu.updateContent(housemates);
     window.state = "overview";
 
@@ -66,12 +66,12 @@ $(document).on('keydown',function(e) {
   }
   if(key == 80) {
     // This is the upper button
-    player.playTune();
     mainMenu.click();
   }
   if(key == 76) {
     // This is the lower button
     if (window.state == "overview") {
+      
       window.state = "menu";
       mainMenu.clear();
       mainMenu.updateContent(menuItems);
@@ -80,12 +80,14 @@ $(document).on('keydown',function(e) {
       $("#bottomButton").text("Back");
     }
 
-    else if (window.state == "newHousemate"){ 
+    else if (window.state == "newHousemate"){
+      window.nameMaker = window.nameMaker.substring(1); 
       socket.emit('addThisHousemate',window.nameMaker);
-      // housemates.push(new housemate(window.nameMaker,0,mainMenu));
       $("#instructions").html("Select a housemate using the wheel and add a beer using the top-right button.<br> Press menu for more options.")
       $("#topButton").text("Add beer");
       $("#bottomButton").text("Menu");
+      housemates.push(new housemate(window.nameMaker,0,mainMenu));
+      housemates.sort(SortByName);
       mainMenu.updateContent(housemates);
       window.state = "overview";
     }

@@ -11,7 +11,7 @@ body {
 
 .wrapper {
     border-color: green;
-    height: 85vh;
+    height: 100vh;
     color: greenyellow;
     font-family: "Liberation Mono";
     display: flex;
@@ -68,6 +68,7 @@ ul.menulist {
   }
 
 #instructions {
+    position:absolute;
     width: 100vw;
     margin-top:20px;
     text-align: center;
@@ -86,8 +87,10 @@ ul.menulist {
     min-width: 200px;
 }
 
-footer {
+#credits {
+    position:absolute;
     width: 100vw;
+    bottom: 20px;
     text-align: center;
     font-size: 10px;
     color: greenyellow;

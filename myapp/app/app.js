@@ -9,12 +9,13 @@ housemates = []
 function readHousematesJSON() {
     var housematesData;
     data = fs.readFileSync('./data/housemates.json');
-        housematesData = JSON.parse(data)        
+        housematesData = JSON.parse(data) 
+        housemates = housematesData;       
         return housematesData;
 }
 
 function addHousemate(newName) {
-    fs.readFileSync('./data/housemates.json', (err, jsonString) => {
+    fs.readFile('./data/housemates.json', (err, jsonString) => {
         if (err) {
             console.log("File read failed:", err)
             return
@@ -22,12 +23,16 @@ function addHousemate(newName) {
         var tempObj = JSON.parse(jsonString);
         tempObj.push({"name":newName,"beercount":0})
         newJsonString = JSON.stringify(tempObj);
-        fs.writeFileSync('./data/housemates.json',newJsonString)
-    })
+        fs.writeFile('./data/housemates.json',newJsonString , function(err) {
+            if (err) { 
+                console.log(err)
+                };
+        });
+    });
 }
 
 function deleteHousemate(deleteName) {
-    fs.readFileSync('./data/housemates.json', (err, jsonString) => {
+    fs.readFile('./data/housemates.json', (err, jsonString) => {
         if (err) {
             console.log("File read failed:", err)
             return
@@ -82,7 +87,7 @@ function substractBeerFromHouseMate(beerName) {
         housemateToSubstractBeerFrom.beercount -= 1;
 
         var newJsonString = JSON.stringify(housematesData);
-        fs.writeFileSync('./data/housemates.json',newJsonString);
+        fs.writeFile('./data/housemates.json',newJsonString);
 
     });
 }
@@ -96,20 +101,16 @@ app.get('/', function(req, res,next) {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    var housemateData = readHousematesJSON();
-
-    socket.emit('housemateData',housemateData)
+    socket.emit('housemateData',readHousematesJSON())
 
     socket.on('deleteThisHouseMate', function(housemateName){
         deleteHousemate(housemateName);
-        socket.emit('housemateData',housemateData)
     });
     
     socket.on('addThisHousemate', function(housemateName) {
         console.log("adding a new housemate");
         console.log("got this info: " + housemateName);
-        addHousemate(housemateName);
-        socket.emit('housemateData',housemateData)
+        addHousemate(housemateName)
     });
 
     socket.on('cheers', function(housemateName) {

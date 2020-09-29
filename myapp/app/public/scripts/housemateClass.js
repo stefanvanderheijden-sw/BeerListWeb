@@ -29,6 +29,7 @@ class housemate {
     }
 
     addBeer () {
+      window.player.playTune();
       this.beerCount += 1;
       this.updateVisualBeer();
       this.mainMenu.updateMyBeer();
