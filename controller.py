@@ -58,7 +58,7 @@ def pinDetect(pin):
 
 clkLastState = GPIO.input(17)
 
-GPIO.add_event_detect(17, GPIO.FALLING, callback=pinDetect, bouncetime=10)
+GPIO.add_event_detect(17, GPIO.RISING, callback=pinDetect, bouncetime=50)
 GPIO.add_event_detect(BUTTON_TOP, GPIO.FALLING, callback=topButton, bouncetime=300)
 GPIO.add_event_detect(BUTTON_BOTTOM, GPIO.FALLING, callback=bottomButton, bouncetime=300)
 
