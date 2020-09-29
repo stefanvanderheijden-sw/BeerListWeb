@@ -7,6 +7,7 @@ try:
 except:
     print("not on RPI 1")
 
+from time import sleep
 
 BUTTON_TOP = 20
 BUTTON_BOTTOM = 21
@@ -38,21 +39,47 @@ def bottomButton(pin):
     keyboard.press('l')
     keyboard.release('l')
 
+Enc_A = 17
+Enc_B = 27
+
 def pinDetect(pin):
-    clkState = GPIO.input(17)
-    dtState = GPIO.input(27)
+    # clkState = GPIO.input(17)
+    # dtState = GPIO.input(27)
     
-    global clkLastState
+    # global clkLastState
  
-    if dtState != clkState:
+    # if dtState != clkState:
+    #     keyboard.press('q')
+    #     buzzer.beep(on_time=0.001, off_time=1, n=1, background=True)
+    #     keyboard.release('q')
+
+    # else:
+    #     keyboard.press('a')
+    #     buzzer.beep(on_time=0.001, off_time=1, n=1, background=True)
+    #     keyboard.release('a')
+    sleep(0.002)
+    Switch_A = GPIO.input(Enc_A)
+    Switch_B = GPIO.input(Enc_B)
+
+    if (Switch_A == 1) and (Switch_B == 0):
         keyboard.press('q')
         buzzer.beep(on_time=0.001, off_time=1, n=1, background=True)
         keyboard.release('q')
+        while Switch_B == 0:
+            Switch_B = GPIO.input(Enc_B)
+        while Switch_B == 1:
+            Switch_B = GPIO.input(Enc_B)
+        return
 
-    else:
+    elif (Switch_A == 1) and (Switch_B == 1):
         keyboard.press('a')
         buzzer.beep(on_time=0.001, off_time=1, n=1, background=True)
         keyboard.release('a')
+        while Switch_A == 1:
+            Switch_A = GPIO.input(Enc_A)
+        return
+    else:
+        return
 
 
 
