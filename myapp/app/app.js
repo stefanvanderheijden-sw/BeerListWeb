@@ -14,7 +14,7 @@ function readHousematesJSON() {
 }
 
 function addHousemate(newName) {
-    fs.readFile('./data/housemates.json', (err, jsonString) => {
+    fs.readFileSync('./data/housemates.json', (err, jsonString) => {
         if (err) {
             console.log("File read failed:", err)
             return
@@ -22,12 +22,12 @@ function addHousemate(newName) {
         var tempObj = JSON.parse(jsonString);
         tempObj.push({"name":newName,"beercount":0})
         newJsonString = JSON.stringify(tempObj);
-        fs.writeFile('./data/housemates.json',newJsonString)
+        fs.writeFileSync('./data/housemates.json',newJsonString)
     })
 }
 
 function deleteHousemate(deleteName) {
-    fs.readFile('./data/housemates.json', (err, jsonString) => {
+    fs.readFileSync('./data/housemates.json', (err, jsonString) => {
         if (err) {
             console.log("File read failed:", err)
             return
@@ -39,7 +39,7 @@ function deleteHousemate(deleteName) {
             }
         });
         newJsonString = JSON.stringify(housematesData);
-        fs.writeFile('./data/housemates.json',newJsonString);
+        fs.writeFileSync('./data/housemates.json',newJsonString);
 
     })
 }
