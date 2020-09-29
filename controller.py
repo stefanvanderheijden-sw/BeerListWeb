@@ -45,13 +45,13 @@ def pinDetect(pin):
     global clkLastState
  
     if dtState != clkState:
-        buzzer.beep(on_time=0.001, off_time=1, n=1, background=True)
         keyboard.press('q')
+        buzzer.beep(on_time=0.001, off_time=1, n=1, background=True)
         keyboard.release('q')
 
     else:
-        buzzer.beep(on_time=0.001, off_time=1, n=1, background=True)
         keyboard.press('a')
+        buzzer.beep(on_time=0.001, off_time=1, n=1, background=True)
         keyboard.release('a')
 
 

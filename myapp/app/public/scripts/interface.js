@@ -14,7 +14,7 @@ for (var i = 1; i < (NoAudioFiles+1); i++) {
 
 var player = new mediaPlayer(audioFiles);
 
-const socket = io('ws://localhost:4200');
+var socket = io.connect();
 
 $("#bottomButton").text("Menu");
 $("#topButton").text("Add beer");

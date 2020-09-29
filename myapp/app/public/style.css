@@ -1,7 +1,7 @@
 body {
     margin: 0;
     background-color: black;
-    --rowHeight: 15px;
+    --rowHeight: 12px;
   }
 
 @font-face {
