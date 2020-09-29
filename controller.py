@@ -2,8 +2,8 @@ try:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
-    GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(17, GPIO.IN)
+    GPIO.setup(27, GPIO.IN)
 except:
     print("not on RPI 1")
 
@@ -85,7 +85,7 @@ def pinDetect(pin):
 
 clkLastState = GPIO.input(17)
 
-GPIO.add_event_detect(17, GPIO.RISING, callback=pinDetect, bouncetime=50)
+GPIO.add_event_detect(17, GPIO.RISING, callback=pinDetect, bouncetime=10)
 GPIO.add_event_detect(BUTTON_TOP, GPIO.FALLING, callback=topButton, bouncetime=300)
 GPIO.add_event_detect(BUTTON_BOTTOM, GPIO.FALLING, callback=bottomButton, bouncetime=300)
 
